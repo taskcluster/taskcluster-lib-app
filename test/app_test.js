@@ -2,7 +2,7 @@ suite("app", function() {
   var assert  = require('assert');
   var path    = require('path');
   var subject = require('../');
-  var request = require('superagent-promise');
+  var request = require('superagent-promise')(require('superagent'), require('promise'));
 
   // Test app creation
   test("app({port: 1459})", function() {

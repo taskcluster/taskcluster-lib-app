@@ -5,7 +5,7 @@
   "description": "taskcluster-lib-app",
   "license": "MPL-2.0",
   "scripts": {
-    "compile": "babel-compile -c tc-rules/babel src:lib test:.test",
+    "compile": "babel-compile -p taskcluster src:lib test:.test",
     "prepublish": "npm run compile",
     "pretest": "npm run compile",
     "test": "mocha .test/*_test.js"
@@ -29,10 +29,9 @@
   "devDependencies": {
     "babel-compile": "^2.0.0",
     "babel-core": "^6.9.0",
+    "babel-preset-taskcluster": "^2.3.0",
     "mocha": "2.5.3",
-    "source-map-support": "^0.4.0",
-    "taskcluster-lib-config": "^0.9.1",
-    "tc-rules": "^5.0.0"
+    "source-map-support": "^0.4.0"
   },
   "main": "./lib/app.js"
 }
