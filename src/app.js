@@ -94,6 +94,9 @@ var app = function(options) {
     }));
   }
 
+  // keep cheap security vuln scanners happy..
+  app.disable('x-powered-by');
+
   // Middleware for development
   if (app.get('env') == 'development') {
     app.use(morganDebug('base:app:request', 'dev'));
