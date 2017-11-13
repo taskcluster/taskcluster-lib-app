@@ -39,6 +39,13 @@ suite('app', function() {
       assert.equal(res.headers['strict-transport-security'], 'max-age=7776000000; includeSubDomains');
     });
 
+    test('/robots.txt', async function() {
+      var res = await request.get('http://localhost:1459/robots.txt');
+      assert(res.ok, 'Got response');
+      assert.equal(res.text, 'User-Agent: *\nDisallow: /\n', 'Got the right text');
+      assert.equal(res.headers['content-type'], 'text/plain; charset=utf-8');
+    });
+
     suiteTeardown(function() {
       return server.terminate();
     });
