@@ -78,6 +78,7 @@ var app = function(options) {
          options.env == 'production',       'env must be production or development');
   assert(options.forceSSL !== undefined,    'forceSSL must be defined');
   assert(options.trustProxy !== undefined,  'trustProxy must be defined');
+  assert(options.docs, 'options.docs must be given');
 
   // Create application
   var app = express();
@@ -129,6 +130,18 @@ var app = function(options) {
     app.use('/robots.txt', function(req, res) {
       res.header('Content-Type', 'text/plain');
       res.send('User-Agent: *\nDisallow: /\n');
+    });
+  }
+
+  if (options.docs == undefined) {
+    options.rootDocsRedirect = false;
+  }
+
+  if (options.rootDocsRedirect) {
+    let link = options.docs.documenter.getDocumentationUrl();
+    DOCS_HTML = "<html><body><a href="+link+">Refer to the documentation</a></body></html>";
+    app.get('/', function(req, res) {
+      res.send(DOCS_HTML);
     });
   }
 
