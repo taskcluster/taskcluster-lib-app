@@ -136,7 +136,7 @@ var app = function(options) {
   if (options.rootDocsRedirect) {
     let link = options.docs.documenter.getDocumentationUrl();
     DOCS_HTML = `<html><body><p>You're lost, here's the way out.</p>
-    <a href= ${link} >Refer to the documentation</a></body></html>`;
+    <a href= "${link}" >Refer to the documentation</a></body></html>`;
     app.get('/', function(req, res) {
       res.status(404).send(DOCS_HTML);
     });
