@@ -62,6 +62,8 @@ var createServer = function() {
  *   trustProxy:            false,          // Trust the proxy that forwarded for SSL
  *   contentSecurityPolicy: true,           // Send CSP (default true!)
  *   robotsTxt:             true,           // Serve a disallow-all robots.txt
+ *   rootDocRedirect:       true,           // Indicator to redirect to a HTML with documentation link (default true!)
+ *   docs:                  'docs',         // Instance of taskcluster-lib-docs for accessing its methods
  * }
  *
  * Returns an express application with extra methods:
@@ -72,6 +74,7 @@ var app = function(options) {
   _.defaults(options, {
     contentSecurityPolicy: true,
     robotsTxt: true,
+    rootDocsRedirect: true,
   });
   assert(typeof options.port === 'number', 'Port must be a number');
   assert(options.env == 'development' ||
@@ -133,6 +136,8 @@ var app = function(options) {
     });
   }
 
+  // If rootDocsRedirect == true ,
+  // we redirect to a HTML page with documentation link
   if (options.rootDocsRedirect) {
     let link = options.docs.documenter.getDocumentationUrl();
     DOCS_HTML = `<html><body><p>You're lost, here's the way out.</p>
