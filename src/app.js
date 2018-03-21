@@ -26,6 +26,12 @@ var notifyLocalAppInParentProcess = function(port) {
 /** Create server from app */
 var createServer = function() {
   var that = this;
+
+  this.use(function(req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(404).json({Message: 'Not found'});
+  });
+
   return new Promise(function(accept, reject) {
     // Launch HTTP server
     var server = http.createServer(that);
