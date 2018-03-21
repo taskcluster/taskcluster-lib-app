@@ -27,6 +27,7 @@ var notifyLocalAppInParentProcess = function(port) {
 var createServer = function() {
   var that = this;
 
+  // 404 Error Handler
   this.use(function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.status(404).json({Message: 'Not found'});
