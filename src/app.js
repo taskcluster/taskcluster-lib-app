@@ -82,12 +82,18 @@ var app = function(options) {
   assert(options.forceSSL !== undefined,    'forceSSL must be defined');
   assert(options.trustProxy !== undefined,  'trustProxy must be defined');
   assert(!options.rootDocsLink || options.docs, 'options.docs must be given if rootDocsLink is specified');
+  assert(options.routers, 'Must provide a map of routers');
+  assert(options.serviceName, 'Must provide a serviceName');
 
   // Create application
   var app = express();
   app.set('port', options.port);
   app.set('env', options.env);
   app.set('json spaces', 2);
+
+  Object.keys(options.routers).forEach(version => {
+    app.use(`/api/${options.serviceName}/${version}/`, options.routers[version]);
+  });
 
   // ForceSSL if required suggested
   if (options.forceSSL) {
@@ -150,7 +156,7 @@ var app = function(options) {
   // Add some auxiliary methods to the app
   app.createServer = createServer;
 
-  return app;
+  return app.createServer();
 };
 
 // Export app creation utility
