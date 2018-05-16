@@ -67,7 +67,6 @@ var app = async function(options) {
   assert(options.forceSSL !== undefined,    'forceSSL must be defined');
   assert(options.trustProxy !== undefined,  'trustProxy must be defined');
   assert(options.apis, 'Must provide an array of apis');
-  assert(options.serviceName, 'Must provide a serviceName');
   assert(!options.rootDocsLink, '`rootDocsLink` is no longer allowed');
   assert(!options.docs, '`docs` is no longer allowed');
 

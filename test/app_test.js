@@ -28,7 +28,6 @@ suite('app', function() {
         forceSSL:         false,
         forceHSTS:        true,
         trustProxy:       false,
-        serviceName:      'app',
         apis:             [fakeApi],
       });
     });
