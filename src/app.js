@@ -53,21 +53,7 @@ var createServer = function() {
   });
 };
 
-/** Create express application
- * options:
- * {
- *   port:                  8080,           // Port to run the server on
- *   env:                   'development',  // 'development' or 'production'
- *   forceSSL:              false,          // Force redirect to SSL or return 403
- *   trustProxy:            false,          // Trust the proxy that forwarded for SSL
- *   contentSecurityPolicy: true,           // Send CSP (default true!)
- *   robotsTxt:             true,           // Serve a disallow-all robots.txt
- *   rootDocsLink:          true,           // Indicator to redirect to a HTML with documentation link (default true!)
- *   docs:                  'docs',         // Instance of taskcluster-lib-docs for accessing its methods
- * }
- *
- * Returns an express application with extra methods:
- *   - `createServer`   (Creates an server)
+/** Create express application.  See the README for docs.
  */
 var app = async function(options) {
   assert(options,                           'options are required');

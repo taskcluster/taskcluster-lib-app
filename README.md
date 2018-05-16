@@ -13,10 +13,7 @@ const App = require('taskcluster-lib-app');
 ...
   server: {
     requires: ['cfg', 'api', 'docs'],
-    setup: ({cfg, api, docs}) => {
-
-      debug('Launching server.');
-      let app = App({
+    setup: ({cfg, api, docs}) => App({
         apis: [api],
         port: 80,
         env: 'production',
@@ -45,10 +42,9 @@ is the result of the `APIBuilder.build` method in that library. In particular,
 each object should have an `express(app)` method which configures an Express
 app for the API.
 
-The resulting object is an express application, configured with the standard
-TaskCluster microservice settings.  It should have an API object added to it,
-and then its `createServer` method called, which will start the Express app and
-return a Promise suitable for use with the loader..
+The resulting object is an express server, up and running on the given port.
+In testing, save this object and call its `terminate()` method to stop the
+server.
 
 ## Debugging Abuse
 
