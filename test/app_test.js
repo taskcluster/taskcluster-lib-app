@@ -10,9 +10,6 @@ suite('app', function() {
     var server;
 
     suiteSetup(async function() {
-
-      let fakeDocs = {documentationUrl: 'https://fake.documentation/url'};
-
       // this library expects an "api" to have an express method that sets it up..
       let fakeApi = {
         express(app) {
@@ -31,7 +28,6 @@ suite('app', function() {
         forceSSL:         false,
         forceHSTS:        true,
         trustProxy:       false,
-        docs:             fakeDocs,
         serviceName:      'app',
         apis:             [fakeApi],
       });
@@ -54,14 +50,6 @@ suite('app', function() {
       assert.equal(res.text, 'User-Agent: *\nDisallow: /\n', 'Got the right text');
       assert.equal(res.headers['content-type'], 'text/plain; charset=utf-8');
     });
-
-    test('get /', async function() {
-      var res = await request
-        .get('http://localhost:1459/')
-        .ok(res => res.status < 500);
-      assert(res.status, 404, 'Got 404 status');
-      assert(res.text.includes('https://fake.documentation/url'));
-    }); 
 
     suiteTeardown(function() {
       return server.terminate();

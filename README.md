@@ -33,8 +33,6 @@ The configuration (here `cfg.server`) has the following options:
  * `trustProxy`: trust headers from the proxy; set to true for production
  * `contentSecurityPolicy`: include a CSP header with default-src: none; *default is true*
  * `robotsTxt`: include a /robots.txt; *default is true*
- * `rootDocsLink`: include a lin to the docs in an HTML document at /; *default is true*
- * `docs`: a taskcluster-lib-docs documenter, used to generate the docs link
 
 The values of the `apis` key are from
 [taskcluster-lib-api](https://github.com/taskcluster/taskcluster-lib-api); each
