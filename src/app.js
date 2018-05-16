@@ -69,7 +69,7 @@ var createServer = function() {
  * Returns an express application with extra methods:
  *   - `createServer`   (Creates an server)
  */
-var app = function(options) {
+var app = async function(options) {
   assert(options,                           'options are required');
   _.defaults(options, {
     contentSecurityPolicy: true,
@@ -82,7 +82,7 @@ var app = function(options) {
   assert(options.forceSSL !== undefined,    'forceSSL must be defined');
   assert(options.trustProxy !== undefined,  'trustProxy must be defined');
   assert(!options.rootDocsLink || options.docs, 'options.docs must be given if rootDocsLink is specified');
-  assert(options.routers, 'Must provide a map of routers');
+  assert(options.apis, 'Must provide an array of apis');
   assert(options.serviceName, 'Must provide a serviceName');
 
   // Create application
@@ -90,10 +90,6 @@ var app = function(options) {
   app.set('port', options.port);
   app.set('env', options.env);
   app.set('json spaces', 2);
-
-  Object.keys(options.routers).forEach(version => {
-    app.use(`/api/${options.serviceName}/${version}/`, options.routers[version]);
-  });
 
   // ForceSSL if required suggested
   if (options.forceSSL) {
@@ -152,6 +148,10 @@ var app = function(options) {
       res.status(200).send(DOCS_HTML);
     });
   }
+
+  options.apis.forEach(api => {
+    api.express(app);
+  });
 
   // Add some auxiliary methods to the app
   app.createServer = createServer;
